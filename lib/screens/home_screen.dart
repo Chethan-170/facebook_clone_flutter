@@ -1,4 +1,5 @@
 import 'package:facebook_clone_flutter/config/palette.dart';
+import 'package:facebook_clone_flutter/data/data.dart';
 import 'package:facebook_clone_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -41,6 +42,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+          SliverToBoxAdapter(
+              child: CreatePostContainer(currentUser: currentUser)),
         ],
       ),
     );
