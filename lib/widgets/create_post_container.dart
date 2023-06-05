@@ -18,11 +18,8 @@ class CreatePostContainer extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 20.0,
-                backgroundColor: Colors.grey[200],
-                backgroundImage:
-                    CachedNetworkImageProvider(currentUser.imageUrl),
+              ProfileAvatar(
+                imageUrl: currentUser.imageUrl,
               ),
               const SizedBox(width: 8.0),
               const Expanded(
