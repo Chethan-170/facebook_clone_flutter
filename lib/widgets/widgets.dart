@@ -3,3 +3,4 @@ export 'create_post_container.dart';
 export 'icon_label_button.dart';
 export 'rooms.dart';
 export 'profile_avatar.dart';
+export 'stories.dart';
