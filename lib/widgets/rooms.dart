@@ -48,10 +48,6 @@ class _CreateRoomButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(80.0),
-          side: BorderSide(
-            width: 3.0,
-            color: (Colors.blueAccent[100])!,
-          ),
         ),
         side: BorderSide(
           width: 3.0,
