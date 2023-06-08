@@ -1,4 +1,6 @@
+import 'package:facebook_clone_flutter/data/data.dart';
 import 'package:facebook_clone_flutter/screens/home_screen.dart';
+import 'package:facebook_clone_flutter/widgets/responsive.dart';
 import 'package:facebook_clone_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -12,12 +14,12 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
-    HomeScreen(),
-    Scaffold(),
-    Scaffold(),
-    Scaffold(),
-    Scaffold(),
-    Scaffold(),
+    const HomeScreen(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
   ];
 
   final List<IconData> _icons = [
@@ -33,20 +35,35 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return DefaultTabController(
         length: _icons.length,
         child: Scaffold(
+          appBar: Responsive.isDesktop(context)
+              ? PreferredSize(
+                  preferredSize: Size(screenSize.width, 100.0),
+                  child: CustomAppBar(
+                    currentUser: currentUser,
+                    icons: _icons,
+                    selectedIndex: _selectedIndex,
+                    onTap: (index) => setState(() => _selectedIndex = index),
+                  ),
+                )
+              : null,
           body: IndexedStack(
             index: _selectedIndex,
             children: _screens,
           ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: CustomTabBar(
-                icons: _icons,
-                selectedIndex: _selectedIndex,
-                onTap: (index) => setState(() => _selectedIndex = index)),
-          ),
+          bottomNavigationBar: !Responsive.isDesktop(context)
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: CustomTabBar(
+                      icons: _icons,
+                      selectedIndex: _selectedIndex,
+                      onTap: (index) => setState(() => _selectedIndex = index)),
+                )
+              : const SizedBox.shrink(),
         ));
   }
 }
