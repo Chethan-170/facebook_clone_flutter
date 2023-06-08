@@ -1,4 +1,5 @@
 import 'package:facebook_clone_flutter/models/models.dart';
+import 'package:facebook_clone_flutter/widgets/responsive.dart';
 import 'package:facebook_clone_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -10,58 +11,69 @@ class CreatePostContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0.0),
-      color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              ProfileAvatar(
-                imageUrl: currentUser.imageUrl,
-              ),
-              const SizedBox(width: 8.0),
-              const Expanded(
-                child: TextField(
-                  decoration: InputDecoration.collapsed(
-                      hintText: "What's on your mind?"),
-                ),
-              )
-            ],
-          ),
-          const Divider(
-            height: 10.0,
-            thickness: 0.5,
-          ),
-          SizedBox(
-            height: 44.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final bool isDesktop = Responsive.isDesktop(context);
+
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: isDesktop ? 5.0 : 0.0),
+      elevation: isDesktop ? 1.0 : 0.0,
+      shape: isDesktop
+          ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))
+          : null,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0.0),
+        decoration: isDesktop
+            ? const BoxDecoration(color: Colors.white, shape: BoxShape.circle)
+            : const BoxDecoration(color: Colors.white),
+        child: Column(
+          children: [
+            Row(
               children: [
-                IconLabelButton(
-                  icon: Icons.videocam,
-                  label: 'Live',
-                  iconColor: Colors.red,
-                  onPressed: () => print('Live'),
+                ProfileAvatar(
+                  imageUrl: currentUser.imageUrl,
                 ),
-                const VerticalDivider(width: 8.0),
-                IconLabelButton(
-                  icon: Icons.photo_library,
-                  label: 'Photo',
-                  iconColor: Colors.green,
-                  onPressed: () => print('Photo'),
-                ),
-                const VerticalDivider(width: 8.0),
-                IconLabelButton(
-                  icon: Icons.video_call,
-                  label: 'Room',
-                  iconColor: Colors.purpleAccent,
-                  onPressed: () => print('Room'),
-                ),
+                const SizedBox(width: 8.0),
+                const Expanded(
+                  child: TextField(
+                    decoration: InputDecoration.collapsed(
+                        hintText: "What's on your mind?"),
+                  ),
+                )
               ],
             ),
-          )
-        ],
+            const Divider(
+              height: 10.0,
+              thickness: 0.5,
+            ),
+            SizedBox(
+              height: 44.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconLabelButton(
+                    icon: Icons.videocam,
+                    label: 'Live',
+                    iconColor: Colors.red,
+                    onPressed: () => print('Live'),
+                  ),
+                  const VerticalDivider(width: 8.0),
+                  IconLabelButton(
+                    icon: Icons.photo_library,
+                    label: 'Photo',
+                    iconColor: Colors.green,
+                    onPressed: () => print('Photo'),
+                  ),
+                  const VerticalDivider(width: 8.0),
+                  IconLabelButton(
+                    icon: Icons.video_call,
+                    label: 'Room',
+                    iconColor: Colors.purpleAccent,
+                    onPressed: () => print('Room'),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
