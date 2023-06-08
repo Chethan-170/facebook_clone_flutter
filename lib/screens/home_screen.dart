@@ -6,8 +6,22 @@ import 'package:facebook_clone_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TrackingScrollController _trackingScrollController =
+      TrackingScrollController();
+
+  @override
+  void dispose() {
+    _trackingScrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +29,10 @@ class HomeScreen extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: Responsive(
-          mobile: _HomeScreenMobile(),
-          desktop: _HomeScreenDesktop(),
+          mobile:
+              _HomeScreenMobile(scrollController: _trackingScrollController),
+          desktop:
+              _HomeScreenDesktop(scrollController: _trackingScrollController),
         ),
       ),
     );
@@ -24,9 +40,14 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _HomeScreenMobile extends StatelessWidget {
+  final TrackingScrollController scrollController;
+
+  const _HomeScreenMobile({super.key, required this.scrollController});
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: scrollController,
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
@@ -81,6 +102,10 @@ class _HomeScreenMobile extends StatelessWidget {
 }
 
 class _HomeScreenDesktop extends StatelessWidget {
+  final TrackingScrollController scrollController;
+
+  const _HomeScreenDesktop({super.key, required this.scrollController});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -96,6 +121,7 @@ class _HomeScreenDesktop extends StatelessWidget {
           width: 600,
           // padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: CustomScrollView(
+            controller: scrollController,
             scrollDirection: Axis.vertical,
             slivers: [
               SliverPadding(
